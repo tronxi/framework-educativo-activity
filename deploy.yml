@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: framework-educativo-activity
+  labels:
+    app: framework-educativo-activity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: framework-educativo-activity
+  template:
+    metadata:
+      labels:
+        app: framework-educativo-activity
+    spec:
+      containers:
+        - name: framework-educativo-activity
+          image: tronxi/framework-educativo-activity:${ACTIVITY_TAG}
+          resources:
+            limits:
+              cpu: "0.4"
+              memory: "512Mi"
+            requests:
+              cpu: "0.2"
+              memory: "400Mi"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8082
+            initialDelaySeconds: 90
+            periodSeconds: 30
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8082
+            initialDelaySeconds: 90
+            periodSeconds: 30
+          env:
+            - name: profile
+              valueFrom:
+                configMapKeyRef:
+                  name: framework-educativo-config-map
+                  key: profile
+            - name: clave
+              valueFrom:
+                secretKeyRef:
+                  name: framework-educativo-secret
+                  key: clave
+            - name: rabbit_pass
+              valueFrom:
+                secretKeyRef:
+                  name: framework-educativo-secret
+                  key: rabbit_pass
+            - name: eureka_host
+              valueFrom:
+                configMapKeyRef:
+                  name: framework-educativo-config-map
+                  key: eureka_host
+            - name: rabbit_host
+              valueFrom:
+                configMapKeyRef:
+                  name: framework-educativo-config-map
+                  key: rabbit_host
+            - name: activity_service
+              valueFrom:
+                configMapKeyRef:
+                  name: framework-educativo-config-map
+                  key: activity_service
+            - name: activity_db
+              valueFrom:
+                configMapKeyRef:
+                  name: framework-educativo-config-map
+                  key: activity_db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activity-service
+  labels:
+    app: framework-educativo-activity
+spec:
+  selector:
+    app: framework-educativo-activity
+  ports:
+    - protocol: TCP
+      port: 8083
+      targetPort: 8083
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: framework-educativo-activity
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: framework-educativo-activity
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 50

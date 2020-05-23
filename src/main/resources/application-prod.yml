@@ -1,0 +1,34 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+  datasource:
+    username: pi
+    password: ENC(+Tb6CL+hH5md5GjPcqoz2PRUrl2KopUp)
+    url: jdbc:mysql://${activity-db}:3306/framework-educativo-activity?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    initialization-mode: embedded
+  application:
+    name: activity
+server:
+  port: 8083
+
+eureka:
+  instance:
+    status-page-url-path: /actuator/health
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    hostname: ${activity-service}
+  client:
+    serviceUrl:
+      defaultZone: ${eureka-host}:8761/eureka/
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+hystrix:
+  shareSecurityContext: true
+feign:
+  hystrix:
+    enabled: true
