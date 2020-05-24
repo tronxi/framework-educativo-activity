@@ -13,7 +13,9 @@ spring:
     name: activity
 server:
   port: 8083
-
+activity-db: 192.168.1.7
+eureka-host: localhost
+activity-service: activity-service
 eureka:
   instance:
     status-page-url-path: /actuator/health
