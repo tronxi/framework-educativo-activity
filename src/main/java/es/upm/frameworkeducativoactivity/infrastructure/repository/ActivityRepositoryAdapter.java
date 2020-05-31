@@ -1,11 +1,10 @@
 package es.upm.frameworkeducativoactivity.infrastructure.repository;
 
-import es.upm.frameworkeducativoactivity.domain.model.ActivityResult;
-import es.upm.frameworkeducativoactivity.domain.model.CreateActivityOrder;
-import es.upm.frameworkeducativoactivity.domain.model.CreateActivityResult;
+import es.upm.frameworkeducativoactivity.domain.model.*;
 import es.upm.frameworkeducativoactivity.domain.port.secondary.ActivityRepository;
 import es.upm.frameworkeducativoactivity.infrastructure.repository.dao.ActivityEntityDao;
 import es.upm.frameworkeducativoactivity.infrastructure.repository.dao.ActivityGroupEntityDao;
+import es.upm.frameworkeducativoactivity.infrastructure.repository.dao.ActivityUserEntityDao;
 import es.upm.frameworkeducativoactivity.infrastructure.repository.entity.ActivityEntity;
 import es.upm.frameworkeducativoactivity.infrastructure.repository.entity.ActivityGroupEntity;
 import es.upm.frameworkeducativoactivity.infrastructure.repository.mapper.ActivityEntityMapper;
@@ -13,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,6 +23,7 @@ public class ActivityRepositoryAdapter implements ActivityRepository {
     private final ActivityEntityMapper activityEntityMapper;
     private final ActivityEntityDao activityEntityDao;
     private final ActivityGroupEntityDao activityGroupEntityDao;
+    private final ActivityUserEntityDao activityUserEntityDao;
 
     @Override
     public CreateActivityResult create(CreateActivityOrder createActivityOrder) {
@@ -63,5 +64,17 @@ public class ActivityRepositoryAdapter implements ActivityRepository {
     @Override
     public void deleteByGroupId(String activityId, String groupId) {
         activityGroupEntityDao.deleteByGroupId(activityId, groupId);
+    }
+
+    @Override
+    public Optional<ActivityResult> findById(String activityId) {
+        Optional<ActivityEntity> activityEntity =
+                Optional.ofNullable(activityEntityDao.findById(activityId));
+        return activityEntity.map(activityEntityMapper::toDomain);
+    }
+
+    @Override
+    public void upload(UploadActivityOrder uploadActivityOrder) {
+        activityUserEntityDao.upload(uploadActivityOrder.getActivityId(), uploadActivityOrder.getStudentId(), true);
     }
 }
