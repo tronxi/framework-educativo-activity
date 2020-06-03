@@ -9,7 +9,9 @@ import es.upm.frameworkeducativoactivity.infrastructure.repository.mapper.Activi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -23,6 +25,13 @@ public class DeliveryRepositoryAdapter implements DeliveryRepository {
         Optional<ActivityUserEntity> activityUserEntity =
                 Optional.ofNullable(activityUserEntityDao.findByStudentIdAndActivityId(studentId, activityId));
         return activityUserEntity.map(activityUserEntityMapper::toDomain);
+    }
+
+    @Override
+    public List<DeliveryResult> findByActivityId(String activityId) {
+        return activityUserEntityDao.findByActivityId(activityId).stream()
+                .map(activityUserEntityMapper::toDomain)
+                .collect(Collectors.toList());
     }
 
     @Override

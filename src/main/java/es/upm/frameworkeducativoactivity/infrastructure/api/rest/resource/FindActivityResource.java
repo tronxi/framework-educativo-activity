@@ -5,6 +5,7 @@ import es.upm.frameworkeducativoactivity.domain.model.DeliveryOrder;
 import es.upm.frameworkeducativoactivity.domain.model.DeliveryResult;
 import es.upm.frameworkeducativoactivity.domain.port.primary.FindActivity;
 import es.upm.frameworkeducativoactivity.domain.port.primary.FindDelivery;
+import es.upm.frameworkeducativoactivity.domain.port.primary.FindDeliveryGroup;
 import es.upm.frameworkeducativoactivity.infrastructure.api.rest.mapper.ActivityMapper;
 import es.upm.frameworkeducativoactivity.infrastructure.api.rest.mapper.DeliveryMapper;
 import es.upm.frameworkeducativoactivity.infrastructure.api.rest.model.ActivityResponse;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "activity-service/activity", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -27,6 +29,7 @@ import java.util.List;
 public class FindActivityResource {
 
     private final FindActivity findActivity;
+    private final FindDeliveryGroup findDeliveryGroup;
     private final ActivityMapper activityMapper;
     private final FindDelivery findDelivery;
     private final DeliveryMapper deliveryMapper;
@@ -38,10 +41,22 @@ public class FindActivityResource {
         return ResponseEntity.ok(activityMapper.toResponse(activityResultList));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/{activityId}/student/{studentId}")
     public ResponseEntity<DeliveryResponse> findDeliveryByUserId(@PathVariable String activityId, @PathVariable String studentId) {
         DeliveryOrder deliveryOrder = deliveryMapper.toDomain(activityId, studentId);
         DeliveryResult deliveryResult = findDelivery.findById(deliveryOrder);
         return ResponseEntity.ok(deliveryMapper.toResponse(deliveryResult));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/{activityId}/detail")
+    public ResponseEntity<List<DeliveryResponse>> findDeliveryByGroupId(@PathVariable String activityId) {
+
+        List<DeliveryResult> deliveryResultList = findDeliveryGroup.findById(activityId);
+
+        return ResponseEntity.ok(deliveryResultList.stream()
+                .map(deliveryMapper::toResponse)
+                .collect(Collectors.toList()));
     }
 }

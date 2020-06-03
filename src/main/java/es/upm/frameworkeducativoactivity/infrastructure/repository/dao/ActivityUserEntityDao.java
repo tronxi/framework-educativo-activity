@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 @Mapper
 public interface ActivityUserEntityDao {
 
@@ -14,6 +16,11 @@ public interface ActivityUserEntityDao {
 
     @Select("select ID_ACTIVITY, ID_USER, MARK, FINISHED FROM ACTIVITY_USER WHERE ID_USER = #{studentId} AND ID_ACTIVITY = #{activityId}")
     ActivityUserEntity findByStudentIdAndActivityId(String studentId, String activityId);
+
+    @Select("select ID_ACTIVITY, ID_USER, MARK, FINISHED FROM ACTIVITY_USER WHERE ID_ACTIVITY = #{activityId}")
+    List<ActivityUserEntity> findByActivityId(String activityId);
+
+
 
     @Update("update ACTIVITY_USER SET MARK = #{mark} where ID_ACTIVITY = #{activityId} and ID_USER = #{userId}")
     void uploadMark(double mark, String activityId, String userId);

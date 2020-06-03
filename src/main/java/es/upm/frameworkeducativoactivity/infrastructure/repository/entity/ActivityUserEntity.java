@@ -9,7 +9,7 @@ public class ActivityUserEntity {
 
     private String activityId;
     private String userId;
-    private double mark;
+    private Double mark;
     private int finished;
 
 }

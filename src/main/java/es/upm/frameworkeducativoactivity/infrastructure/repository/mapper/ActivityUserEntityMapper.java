@@ -10,7 +10,7 @@ public class ActivityUserEntityMapper {
         return DeliveryResult.builder()
                 .activityId(activityUserEntity.getActivityId())
                 .finished(activityUserEntity.getFinished() == 1)
-                .mark(activityUserEntity.getMark())
+                .mark(activityUserEntity.getMark() == null ? 0 : activityUserEntity.getMark())
                 .userId(activityUserEntity.getUserId())
                 .build();
     }
