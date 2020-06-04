@@ -19,7 +19,7 @@ public class UploadMarkResource {
     private final UploadMark uploadMark;
     private final UploadMarkMapper uploadMarkMapper;
 
-    @PreAuthorize("hasRole('TEACHER')")
+    @PreAuthorize("hasRole('TEACHER') or hasRole('ADMIN')")
     @PutMapping(value = "/{activityId}/student/{studentId}/mark")
     public ResponseEntity uploadMark(@PathVariable String studentId, @PathVariable String activityId,
                                      @RequestBody UploadMarkRequest mark) {
