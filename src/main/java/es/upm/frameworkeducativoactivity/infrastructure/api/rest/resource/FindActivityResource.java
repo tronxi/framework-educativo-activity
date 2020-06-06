@@ -41,7 +41,7 @@ public class FindActivityResource {
         return ResponseEntity.ok(activityMapper.toResponse(activityResultList));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('STUDENT') or hasRole('ADMIN')")
     @GetMapping(value = "/{activityId}/student/{studentId}")
     public ResponseEntity<DeliveryResponse> findDeliveryByUserId(@PathVariable String activityId, @PathVariable String studentId) {
         DeliveryOrder deliveryOrder = deliveryMapper.toDomain(activityId, studentId);

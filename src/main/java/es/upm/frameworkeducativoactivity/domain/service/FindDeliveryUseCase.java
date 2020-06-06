@@ -21,6 +21,15 @@ public class FindDeliveryUseCase implements FindDelivery {
         Optional<DeliveryResult> deliveryResult = deliveryRepository
                 .findByActivityIdAndStudentId(deliveryOrder.getActivityId(), deliveryOrder.getStudentId());
 
-        return deliveryResult.orElseThrow(RuntimeException::new);
+        return deliveryResult.orElse(failedDelivery(deliveryOrder));
+    }
+
+    private DeliveryResult failedDelivery(DeliveryOrder deliveryOrder) {
+        return DeliveryResult.builder()
+                .activityId(deliveryOrder.getActivityId())
+                .userId(deliveryOrder.getStudentId())
+                .mark(0)
+                .finished(false)
+                .build();
     }
 }
