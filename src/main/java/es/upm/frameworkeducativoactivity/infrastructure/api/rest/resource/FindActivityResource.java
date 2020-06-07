@@ -34,7 +34,7 @@ public class FindActivityResource {
     private final FindDelivery findDelivery;
     private final DeliveryMapper deliveryMapper;
 
-    @PreAuthorize("hasRole('STUDENT') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('TEACHER') or hasRole('STUDENT') or hasRole('ADMIN')")
     @GetMapping(value = "/group/{groupId}")
     public ResponseEntity<List<ActivityResponse>> findActivitiesByGroupId(@PathVariable String groupId) {
         List<ActivityResult> activityResultList = findActivity.findByGroupId(groupId);
@@ -49,7 +49,7 @@ public class FindActivityResource {
         return ResponseEntity.ok(deliveryMapper.toResponse(deliveryResult));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('TEACHER') or hasRole('ADMIN')")
     @GetMapping(value = "/{activityId}/detail")
     public ResponseEntity<List<DeliveryResponse>> findDeliveryByGroupId(@PathVariable String activityId) {
 

@@ -24,7 +24,7 @@ public class CreateActivityResource {
     private final CreateActivity createActivity;
     private final CreateActivityMapper createActivityMapper;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('TEACHER') or hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CreateActivityResponse> createActivity(@RequestBody CreateActivityRequest createActivityRequest) {
 

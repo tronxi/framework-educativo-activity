@@ -18,7 +18,7 @@ public class DeleteActivityResource {
 
     private final DeleteActivity deleteActivity;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('TEACHER') or hasRole('ADMIN')")
     @DeleteMapping(value = "/{activityId}/group/{groupId}")
     public ResponseEntity findActivitiesByGroupId(@PathVariable String activityId, @PathVariable String groupId) {
         deleteActivity.deleteByGroupId(activityId, groupId);
