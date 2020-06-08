@@ -11,5 +11,10 @@ public interface ActivityGroupEntityDao {
     void saveActivityGroupList(String activityId, String groupId);
 
     @Delete("delete from ACTIVITY_GROUP WHERE ID_ACTIVITY = #{activityId} and ID_GROUP = #{groupId}")
-    void deleteByGroupId(String activityId, String groupId);
+    void deleteByActivityIdAndGroupId(String activityId, String groupId);
+
+    @Delete("delete from ACTIVITY_GROUP WHERE ID_GROUP = #{groupId}")
+    void deleteByGroupId(String groupId);
+
+
 }

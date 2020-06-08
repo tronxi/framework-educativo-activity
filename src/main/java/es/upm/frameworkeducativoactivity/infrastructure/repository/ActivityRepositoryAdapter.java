@@ -63,7 +63,7 @@ public class ActivityRepositoryAdapter implements ActivityRepository {
 
     @Override
     public void deleteByGroupId(String activityId, String groupId) {
-        activityGroupEntityDao.deleteByGroupId(activityId, groupId);
+        activityGroupEntityDao.deleteByActivityIdAndGroupId(activityId, groupId);
     }
 
     @Override

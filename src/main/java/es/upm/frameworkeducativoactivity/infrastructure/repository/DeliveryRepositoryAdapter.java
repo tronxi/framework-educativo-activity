@@ -3,6 +3,7 @@ package es.upm.frameworkeducativoactivity.infrastructure.repository;
 import es.upm.frameworkeducativoactivity.domain.model.DeliveryResult;
 import es.upm.frameworkeducativoactivity.domain.model.UploadMarkOrder;
 import es.upm.frameworkeducativoactivity.domain.port.secondary.DeliveryRepository;
+import es.upm.frameworkeducativoactivity.infrastructure.repository.dao.ActivityGroupEntityDao;
 import es.upm.frameworkeducativoactivity.infrastructure.repository.dao.ActivityUserEntityDao;
 import es.upm.frameworkeducativoactivity.infrastructure.repository.entity.ActivityUserEntity;
 import es.upm.frameworkeducativoactivity.infrastructure.repository.mapper.ActivityUserEntityMapper;
@@ -19,6 +20,12 @@ public class DeliveryRepositoryAdapter implements DeliveryRepository {
 
     private final ActivityUserEntityDao activityUserEntityDao;
     private final ActivityUserEntityMapper activityUserEntityMapper;
+    private final ActivityGroupEntityDao activityGroupEntityDao;
+
+    @Override
+    public void deleteByGroupId(String groupId) {
+        activityGroupEntityDao.deleteByGroupId(groupId);
+    }
 
     @Override
     public Optional<DeliveryResult> findByActivityIdAndStudentId(String activityId, String studentId) {
