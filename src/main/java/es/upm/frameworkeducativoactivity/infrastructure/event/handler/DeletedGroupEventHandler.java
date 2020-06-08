@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-@RabbitListener(queues = "userGroup.deleted.activity")
+@RabbitListener(queues = "group.deleted.activity")
 public class DeletedGroupEventHandler {
 
     private final ObjectMapper objectMapper;
