@@ -21,13 +21,12 @@ public class UploadActivityUseCase implements UploadActivity {
         ActivityResult activityResult = activityRepository
                 .findById(uploadActivityOrder.getActivityId())
                 .orElseThrow(RuntimeException::new);
-        System.out.println(uploadActivityOrder.getFile());
-
-        activityRepository.upload(uploadActivityOrder);
 
         if (ifDateIsValid(activityResult)) {
             return koResponse();
         }
+
+        activityRepository.upload(uploadActivityOrder);
 
         return okResponse();
     }

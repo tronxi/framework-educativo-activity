@@ -16,7 +16,7 @@ public class UploadActivityMapper {
             return UploadActivityOrder.builder()
                     .activityId(activityId)
                     .studentId(studentId)
-                    .name(uploadActivityRequest.getName())
+                    .name(uploadActivityRequest.getFile().getOriginalFilename())
                     .file(uploadActivityRequest.getFile().getInputStream())
                     .build();
         } catch (IOException e) {

@@ -24,6 +24,7 @@ public class ActivityRepositoryAdapter implements ActivityRepository {
     private final ActivityEntityDao activityEntityDao;
     private final ActivityGroupEntityDao activityGroupEntityDao;
     private final ActivityUserEntityDao activityUserEntityDao;
+    private final S3Repository s3Repository;
 
     @Override
     public CreateActivityResult create(CreateActivityOrder createActivityOrder) {
@@ -75,6 +76,7 @@ public class ActivityRepositoryAdapter implements ActivityRepository {
 
     @Override
     public void upload(UploadActivityOrder uploadActivityOrder) {
+        s3Repository.save(uploadActivityOrder);
         activityUserEntityDao.upload(uploadActivityOrder.getActivityId(), uploadActivityOrder.getStudentId(), true);
     }
 }

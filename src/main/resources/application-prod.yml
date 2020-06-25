@@ -16,6 +16,12 @@ server:
 activity-db: 192.168.1.7
 eureka-host: localhost
 activity-service: activity-service
+
+aws-s3:
+  access-key: "defaultkey"
+  secret-key: "defaultsecret"
+  bucket-name: "framework-educativo-bucket"
+
 eureka:
   instance:
     status-page-url-path: /actuator/health
