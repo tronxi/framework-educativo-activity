@@ -3,10 +3,8 @@ package es.upm.frameworkeducativoactivity.infrastructure.api.rest.resource;
 import es.upm.frameworkeducativoactivity.domain.model.UploadActivityOrder;
 import es.upm.frameworkeducativoactivity.domain.model.UploadActivityResult;
 import es.upm.frameworkeducativoactivity.domain.port.primary.UploadActivity;
-import es.upm.frameworkeducativoactivity.domain.port.primary.UploadMark;
 import es.upm.frameworkeducativoactivity.infrastructure.api.rest.mapper.UploadActivityMapper;
 import es.upm.frameworkeducativoactivity.infrastructure.api.rest.model.UploadActivityRequest;
-import es.upm.frameworkeducativoactivity.infrastructure.api.rest.model.UploadMarkRequest;
 import es.upm.frameworkeducativoactivity.infrastructure.security.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -25,9 +23,9 @@ public class UploadActivityResource {
     private final JwtService jwtService;
 
     @PreAuthorize("hasRole('STUDENT')")
-    @PutMapping("/{activityId}/student/{studentId}")
+    @PutMapping(value = "/{activityId}/student/{studentId}", consumes = "multipart/form-data")
     public ResponseEntity uploadActivity(@PathVariable String studentId, @PathVariable String activityId,
-                                         @RequestBody UploadActivityRequest uploadActivityRequest,
+                                         @ModelAttribute UploadActivityRequest uploadActivityRequest,
                                          @RequestHeader("authorization") String authorization) {
 
         String user = jwtService.user(authorization);
