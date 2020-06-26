@@ -9,6 +9,7 @@ import es.upm.frameworkeducativoactivity.infrastructure.repository.entity.Activi
 import es.upm.frameworkeducativoactivity.infrastructure.repository.entity.ActivityGroupEntity;
 import es.upm.frameworkeducativoactivity.infrastructure.repository.mapper.ActivityEntityMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -18,8 +18,8 @@ eureka-host: localhost
 activity-service: activity-service
 
 aws-s3:
-  access-key: "defaultkey"
-  secret-key: "defaultsecret"
+  access-key: "defaultaccess"
+  secret-key: "secretkey"
   bucket-name: "framework-educativo-bucket"
 
 eureka:
