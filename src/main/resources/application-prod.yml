@@ -22,6 +22,8 @@ aws-s3:
   secret-key: "secretkey"
   bucket-name: "framework-educativo-bucket"
 
+secret-token: "default-secret-token"
+
 eureka:
   instance:
     status-page-url-path: /actuator/health

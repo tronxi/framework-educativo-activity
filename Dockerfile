@@ -18,5 +18,6 @@ ENV rabbit_pass guest
 ENV activity_db localhost
 ENV access_key acceskey
 ENV secret_key secretkey
+ENV secret_token secretToken
 COPY --from="builder" /target/framework-educativo-activity-0.0.1-SNAPSHOT.jar .
-CMD java -jar -Dspring.profiles.active=${profile} -Djasypt.encryptor.password=${clave} framework-educativo-activity-0.0.1-SNAPSHOT.jar --eureka-host=${eureka_host} --activity-service=${activity_service} --activity-db=${activity_db} --spring.rabbitmq.host=${rabbit_host} --spring.rabbitmq.password=${rabbit_pass} --aws-s3.access-key=${access_key} --aws-s3.secret-key=${secret_key}
+CMD java -jar -Dspring.profiles.active=${profile} -Djasypt.encryptor.password=${clave} framework-educativo-activity-0.0.1-SNAPSHOT.jar --eureka-host=${eureka_host} --activity-service=${activity_service} --activity-db=${activity_db} --spring.rabbitmq.host=${rabbit_host} --spring.rabbitmq.password=${rabbit_pass} --aws-s3.access-key=${access_key} --aws-s3.secret-key=${secret_key} --secret-token=${secret_token}
