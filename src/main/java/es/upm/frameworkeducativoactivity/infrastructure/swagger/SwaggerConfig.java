@@ -28,7 +28,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .apiInfo(
                         new ApiInfoBuilder()
                                 .version("1.0")
-                                .title("User Service API")
+                                .title("Activity Service API")
                                 .build()
                 );
     }
