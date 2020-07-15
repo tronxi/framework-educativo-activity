@@ -73,6 +73,21 @@ spec:
                 configMapKeyRef:
                   name: framework-educativo-config-map
                   key: activity_db
+            - name: secret_token
+              valueFrom:
+                configMapKeyRef:
+                  name: framework-educativo-config-map
+                  key: secret_token
+            - name: access_key
+              valueFrom:
+                secretKeyRef:
+                  name: framework-educativo-secret
+                  key: access_key
+            - name: secret_key
+              valueFrom:
+                secretKeyRef:
+                  name: framework-educativo-secret
+                  key: secret_key
 ---
 apiVersion: v1
 kind: Service
