@@ -16,7 +16,7 @@ pipeline {
             steps {
                 sh '''
                     echo $DOCKER_HUB_PASSWORD
-                    docker build -t tronxi/framework-educativo-activityt:${ACTIVITY_TAG} .
+                    docker build -t tronxi/framework-educativo-activity:${ACTIVITY_TAG} .
                 '''
             }
         }
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 sh '''
                     docker login  --username tronxi --password $DOCKER_HUB_PASSWORD
-                    docker push tronxi/framework-educativo-activityt:${ACTIVITY_TAG}
+                    docker push tronxi/framework-educativo-activity:${ACTIVITY_TAG}
                 '''
             }
         }
