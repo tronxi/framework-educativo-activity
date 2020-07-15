@@ -19,11 +19,11 @@ spec:
           image: tronxi/framework-educativo-activity:${ACTIVITY_TAG}
           resources:
             limits:
-              cpu: "0.6"
-              memory: "600Mi"
+              cpu: "0.9"
+              memory: "900Mi"
             requests:
-              cpu: "0.4"
-              memory: "512Mi"
+              cpu: "0.8"
+              memory: "850Mi"
           livenessProbe:
             httpGet:
               path: /actuator/health
