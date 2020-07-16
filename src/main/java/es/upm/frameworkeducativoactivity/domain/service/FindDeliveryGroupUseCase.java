@@ -2,7 +2,7 @@ package es.upm.frameworkeducativoactivity.domain.service;
 
 import es.upm.frameworkeducativoactivity.domain.model.DeliveryResult;
 import es.upm.frameworkeducativoactivity.domain.port.primary.FindDeliveryGroup;
-import es.upm.frameworkeducativoactivity.infrastructure.repository.DeliveryRepositoryAdapter;
+import es.upm.frameworkeducativoactivity.domain.port.secondary.DeliveryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +12,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FindDeliveryGroupUseCase implements FindDeliveryGroup {
 
-    private final DeliveryRepositoryAdapter deliveryRepositoryAdapter;
+    private final DeliveryRepository deliveryRepository;
 
     @Override
     public List<DeliveryResult> findById(String activityId) {
-        return deliveryRepositoryAdapter.findByActivityId(activityId);
+        return deliveryRepository.findByActivityId(activityId);
     }
 }
